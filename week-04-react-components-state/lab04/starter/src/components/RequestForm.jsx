@@ -17,15 +17,15 @@ function RequestForm({ onAddRequest }) {
       errors.requestType = 'กรุณาเลือกประเภทคำร้อง';
     }
 
-    if (location.trim != " ") {
+    if (location.trim().length < 2) {
       errors.location = 'กรุณากรอกชื่อสถานที่่'
     }
 
-    if (details.trim < 10) {
+    if (details.trim().length < 10) {
       errors.details = 'รายละเอียดต้องมีอย่างน้อย 2 ตัวอักษร'
     }
 
-    if (priority = " ") {
+    if (priority === " ") {
       errors.priority = 'กรุณาเลือกประเภทความสำคัญ'
     }
     return errors;
@@ -36,7 +36,7 @@ function RequestForm({ onAddRequest }) {
     // TODO LAB4-R05–R07: validate controlled state แล้วเรียก onAddRequest
     const errors = validateTask();
     if(Object.keys(errors).length > 0){
-      setErrors(validateTask);
+      setErrors(errors);
       return;
     }
     setErrors({});
@@ -50,8 +50,13 @@ function RequestForm({ onAddRequest }) {
       status: 'pending',
     };
     onAddRequest(newRequest);
-  }
 
+    setRequesterName('');
+    setRequestType('');
+    setLocation('');
+    setDetails('');
+    setPriority('normal');
+  }
 
 
   return (

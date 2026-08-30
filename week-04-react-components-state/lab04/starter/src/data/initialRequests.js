@@ -15,7 +15,7 @@ export const initialRequests = [
     location: 'อาคารวิศวกรรมซอฟต์แวร์',
     details: 'เข้าสู่ระบบห้องปฏิบัติการไม่ได้',
     priority: 'normal',
-    status: 'in-progress',
+    status: 'progress',
   },
   {
     id: 'REQ-003',

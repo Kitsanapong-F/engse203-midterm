@@ -13,23 +13,32 @@ function App() {
 
   // TODO LAB4-R04: คำนวณ summary เป็น derived data
   const summary = {
-    total: setRequests.length,
+    total: requests.length,
     pending: requests.filter(r => r.status === 'pending').length,
     inProgress: requests.filter(r => r.status === 'in-progress').length,
     completed: requests.filter(r => r.status === 'completed').length,
   };
 
   // TODO LAB4-R08: คำนวณ filteredRequests จาก requests + statusFilter
-  const filteredRequests = requests;
+  const filteredRequests = requests.filter(requests => {
+    if(statusFilter === 'all') return true;
+    return requests.status === statusFilter;
+  });
 
   function handleAddRequest(requestData) {
     const nextNumber = requests.length + 1;
     const newId = `REQ-${String(nextNumber).padStart(3, '0')}`;
-    console.log('TODO add request', requestData);
+
+    const finalRequest = {
+      id : newId,
+      ...requestData
+    };
+
+    setRequests([finalRequest , ...requests]);
   }
 
   function handleDeleteRequest(requestId) {
-    console.log('TODO delete request', requestId);
+    setRequests(requests.filter(request => request.id !== requestId));
   }
 
   return (
@@ -45,7 +54,7 @@ function App() {
           <section className="panel" aria-labelledby="request-list-title">
             <div className="section-heading">
               <h2 id="request-list-title">รายการคำร้อง</h2>
-              <FilterBar value={statusFilter} onFilterChange={() => {}} />
+              <FilterBar value={statusFilter} onFilterChange={(newFilter) => setStatusFilter(newFilter)} />
             </div>
             <RequestList
               requests={filteredRequests}
