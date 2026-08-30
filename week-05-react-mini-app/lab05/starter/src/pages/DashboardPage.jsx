@@ -1,10 +1,8 @@
 import { useMemo, useState } from 'react';
 import initialRequests from '../../public/data/initialRequests.json';
 import FilterBar from '../components/FilterBar.jsx';
-import RequestForm from '../components/RequestForm.jsx';
 import RequestList from '../components/RequestList.jsx';
 import SummaryPanel from '../components/SummaryPanel.jsx';
-
 function DashboardPage() {
   const [requests, setRequests] = useState(initialRequests);
   const [statusFilter, setStatusFilter] = useState('all');
@@ -32,13 +30,10 @@ function DashboardPage() {
         <div className="page-heading"><div><p className="eyebrow dark">CP00 · WEEK04 REGRESSION</p><h1>Campus Service Request</h1><p>ตรวจ add, filter, delete และ validation ก่อน refactor</p></div></div>
         {notice && <p className="notice" role="status">{notice}</p>}
         <SummaryPanel summary={summary} />
-        <div className="workspace-grid">
-          <section className="panel form-panel"><RequestForm onAddRequest={handleAdd} /></section>
           <section className="panel" aria-labelledby="request-list-title">
             <div className="section-heading"><h2 id="request-list-title">รายการคำร้อง</h2><FilterBar value={statusFilter} onFilterChange={setStatusFilter} /></div>
             <RequestList requests={filteredRequests} onDeleteRequest={handleDelete} />
           </section>
-        </div>
       </section>
     </main>
   );
