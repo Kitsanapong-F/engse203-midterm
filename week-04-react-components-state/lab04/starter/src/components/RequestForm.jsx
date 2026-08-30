@@ -6,6 +6,7 @@ function RequestForm({ onAddRequest }) {
   const [details, setDetails] = useState('');
   const [priority, setPriority] = useState('normal');
   const [errors, setErrors] = useState({});
+  const [isSuccess, setIsSuccess] = useState(false);
   function validateTask() {
     const errors = {};
 
@@ -56,6 +57,7 @@ function RequestForm({ onAddRequest }) {
     setLocation('');
     setDetails('');
     setPriority('normal');
+    setIsSuccess(true);
   }
 
 
@@ -101,7 +103,9 @@ function RequestForm({ onAddRequest }) {
         </fieldset>
 
         <button type="submit">เพิ่มคำร้อง</button>
-        <p className="status" role="status">TODO: feedback</p>
+        <p className="status" role="status">
+          {isSuccess ? ' เพิ่มคำร้องสำเร็จแล้ว!' : 'เพิ่มคำร้องไม่สำเร็จ'}
+        </p>
       </form>
     </section>
   );
